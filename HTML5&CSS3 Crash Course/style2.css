@@ -1,0 +1,79 @@
+body {
+    font-family: 'Oswald', sans-serif;
+}
+
+main {
+    margin: 20px;
+}
+
+header {
+    background: black;
+    color: white;
+}
+
+.title {
+    text-decoration: underline;
+
+    /* animation-name: red-to-black;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate; */
+
+    animation: red-to-black 2s linear 0s infinite alternate;
+}
+
+.submit-button {
+    font-size: 20px;
+    font-family: 'Oswald', sans-serif;
+
+    background: rgb(0, 0, 0);
+    color: white;
+
+    border: 2px solid black;
+    padding: 8px;
+    margin: 10px 0px;
+
+    transition: background,padding 500ms ease;
+    transition: transform 500ms ease;
+}
+
+.submit-button:hover {
+    color: black;
+    background: white;
+    padding: 8px 30px;
+    transform: translate(50px,0);
+}
+
+#name {
+    font-size: 20px;
+    font-family: 'Oswald', sans-serif; 
+}
+
+#email {
+    font-size: 20px;
+    font-family: 'Oswald', sans-serif;
+}
+
+@keyframes red-to-black {
+    /* from {
+        background: red;
+    }
+
+    to {
+        background: black;
+    } */
+
+    0% {
+        background: red;
+    }
+
+    50% {
+        background: yellow;
+    }
+
+    100% {
+        background: black;
+    }
+}
