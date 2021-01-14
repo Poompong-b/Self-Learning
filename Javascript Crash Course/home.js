@@ -1,11 +1,12 @@
-console.log("Hello");
-alert("Hello Let's Learn JS");
-
 //Variables
-var b = 'smoothie';
-var someNumber = 45;
+var myName = 'Poom';
+myName = 8;
+let ourName = 'freeCodeCamp';
+const pi = 3.14;
 
-console.log(b);
-console.log(someNumber);
-
-document.getElementById()
+var a;
+var b = 2;
+console.log(a);
+a = 7;
+b = a;
+console.log(a);
