@@ -1,0 +1,65 @@
+header {
+  border: 2px solid black;
+
+  text-align: center;
+}
+
+.container {
+}
+
+#button-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+
+  margin: 20px 0;
+}
+
+#wee {
+  border: none;
+  border-radius: 10px;
+
+  padding: 10px;
+
+  background: blue;
+
+  color: white;
+  font-size: 30px;
+}
+
+#yahoo {
+  border: none;
+  border-radius: 10px;
+
+  padding: 10px;
+
+  background: red;
+
+  color: white;
+  font-size: 30px;
+}
+
+#google {
+  border: none;
+  border-radius: 10px;
+
+  padding: 10px;
+
+  background: yellow;
+
+  color: black;
+  font-size: 30px;
+}
+
+#facebook {
+  border: none;
+  border-radius: 10px;
+
+  padding: 10px;
+
+  background: green;
+
+  color: white;
+  font-size: 30px;
+}
