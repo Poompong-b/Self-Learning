@@ -6,3 +6,92 @@ header {
 
 #title-container {
 }
+
+#blackjack-button-box {
+  margin: 20px 20px;
+}
+
+#blackjack-box-1,
+#blackjack-box-2,
+#result-box {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+
+  border: 1px solid black;
+
+  background: darkgreen;
+
+  color: white;
+}
+
+#your-box,
+#dealer-box {
+  flex: 1;
+
+  height: 350px;
+  max-height: fit-content;
+
+  border: 2px solid black;
+
+  text-align: center;
+}
+
+#your-box img,
+#dealer-box img {
+  width: 15%;
+  margin: 10px 10px;
+
+  background: white;
+}
+
+#blackjack-button-box button::before {
+  content: "";
+
+  position: absolute;
+
+  background: red;
+  opacity: 0.5;
+
+  z-index: 2;
+}
+
+#blackjack-button-box button {
+  padding: 10px;
+  margin: 0 20px;
+
+  border: none;
+  border-radius: 10px;
+
+  font-size: 30px;
+
+  transition: transform 0.5s, box-shadow 0.5s;
+}
+
+#blackjack-button-box button:active {
+  background: lightgrey;
+}
+
+#blackjack-button-box button:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0px 20px black;
+}
+
+#result-box {
+  padding: 20px 0;
+}
+
+#result-table {
+  border-collapse: collapse;
+}
+
+tr,
+th,
+td {
+  padding: 10px;
+
+  border: 2px solid white;
+
+  font-size: 25px;
+  text-align: center;
+}
