@@ -27,6 +27,8 @@ let blackjackDatabase = {
     J: 10,
     A: [1, 11],
   },
+  result: { win: 0, losses: 0, draw: 0 },
+  states: { isStand: false, turnsOver: false },
 };
 
 const YOU = blackjackDatabase["you"];
@@ -34,25 +36,44 @@ const DEALER = blackjackDatabase["dealer"];
 
 //Sounds
 const hitSound = new Audio("blackjack_assets/sounds/swish.m4a");
+const winSound = new Audio("blackjack_assets/sounds/cash.mp3");
+const lostSound = new Audio("blackjack_assets/sounds/aww.mp3");
 
 //Hit button Event
 document.querySelector("#hit").addEventListener("click", blackjackHit);
 //Deal button event
 document.querySelector("#deal").addEventListener("click", blackjackDeal);
+//Stand button Event
+document.querySelector("#stand").addEventListener("click", blackjackStand);
 
 //HIT Function
 function blackjackHit() {
-  let card = randomCard();
-  showCard(card, YOU);
-  updateScore(card, YOU);
-  showScore(YOU);
+  if (blackjackDatabase["states"]["isStand"] === false) {
+    let card = randomCard();
+    showCard(card, YOU);
+    updateScore(card, YOU);
+    showScore(YOU);
+  }
+}
+
+//Stand Function
+async function blackjackStand() {
+  blackjackDatabase["states"]["isStand"] = true;
+  while (DEALER["score"] < 16) {
+    dealerLogic();
+    await sleep(1000);
+  }
 }
 
 //DEAL Function
 function blackjackDeal() {
-  removeImage();
-  clearScore();
-  showScore(YOU);
+  if (blackjackDatabase["states"]["turnsOver"] === true) {
+    removeImage();
+    clearScore();
+    showScore(YOU);
+    showScore(DEALER);
+    clearResult();
+  }
 }
 
 //Show card
@@ -115,4 +136,81 @@ function showScore(side) {
 function clearScore() {
   YOU["score"] = 0;
   DEALER["score"] = 0;
+}
+
+//Dealer
+function dealerLogic() {
+  let card = randomCard();
+  showCard(card, DEALER);
+  updateScore(card, DEALER);
+  showScore(DEALER);
+
+  if (DEALER["score"] > 15) {
+    let winner = computeWinner();
+    showResult(winner);
+    blackjackDatabase["states"]["turnsOver"] = true;
+  }
+}
+
+//Compute Winner & Return winner
+function computeWinner() {
+  let winner;
+  if (YOU["score"] <= 21) {
+    if (YOU["score"] > DEALER["score"] || DEALER["score"] > 21) {
+      winner = YOU;
+      blackjackDatabase["result"]["win"]++;
+    }
+  }
+  if (YOU["score"] < DEALER["score"] || YOU["score"] > 21) {
+    if (DEALER["score"] > 21) {
+      blackjackDatabase["result"]["draw"]++;
+    } else {
+      winner = DEALER;
+      blackjackDatabase["result"]["losses"]++;
+    }
+  }
+
+  return winner;
+}
+
+//Show Result
+function showResult(winner) {
+  let message, color;
+
+  if (winner === YOU) {
+    message = "YOU WON";
+    color = "green";
+    winSound.play();
+  } else if (winner === DEALER) {
+    message = "YOU LOST";
+    color = "red";
+    lostSound.play();
+  } else {
+    message = "YOU DREW";
+    color = "black";
+  }
+
+  document.querySelector("#result").textContent = message;
+  document.querySelector("#result").style.color = color;
+
+  //Update Result
+  document.querySelector("#wins").textContent =
+    blackjackDatabase["result"]["win"];
+  document.querySelector("#losses").textContent =
+    blackjackDatabase["result"]["losses"];
+  document.querySelector("#draw").textContent =
+    blackjackDatabase["result"]["draw"];
+}
+
+//clear result
+function clearResult() {
+  document.querySelector("#result").textContent = "Let's Play";
+  document.querySelector("#result").style.color = "black";
+  blackjackDatabase["states"]["isStand"] = false;
+  blackjackDatabase["states"]["turnsOver"] = false;
+}
+
+//Sleep
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
