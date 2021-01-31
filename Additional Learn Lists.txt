@@ -1,0 +1,7 @@
+-JSON (pratice more)
+-Fetch (pratice more)
+-js async await (practice more)
+-js higher order array 
+-HTTP method and etc.
+-All above working with Backend
+-REACT With MORE MORE Practice
