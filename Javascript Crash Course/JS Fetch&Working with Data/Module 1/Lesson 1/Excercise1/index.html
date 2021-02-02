@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Excercise 1</title>
+  </head>
+  <body>
+    <div id="poem"></div>
+
+    <script>
+      async function getPoem() {
+        const res = await fetch("poem.txt");
+        const poem = await res.text();
+        console.log(poem);
+
+        document.getElementById("poem").innerHTML = `<p>${poem}</p>`;
+      }
+
+      getPoem();
+    </script>
+  </body>
+</html>

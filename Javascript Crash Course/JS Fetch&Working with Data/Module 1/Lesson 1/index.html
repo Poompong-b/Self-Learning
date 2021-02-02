@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lesson 1</title>
+  </head>
+  <body>
+    <img src="" alt="" srcset="" id="rainbow" />
+
+    <script>
+      //Async way
+      async function catchRainbow() {
+        const response = await fetch("rainbow.jpg");
+        const blob = await response.blob();
+        document.getElementById("rainbow").src = URL.createObjectURL(blob);
+      }
+      catchRainbow()
+        .then(() => {
+          console.log("SUCCESS");
+        })
+        .catch((err) => {
+          console.log("ERROR");
+        });
+
+      //Promise way
+      //   fetch("rainbow.jpg")
+      //     .then((response) => {
+      //       console.log(response);
+      //       return response.blob();
+      //     })
+      //     .then((response) => {
+      //       console.log(URL.createObjectURL(response));
+      //       document.getElementById("rainbow").src = URL.createObjectURL(
+      //         response
+      //       );
+      //     })
+      //     .catch((err) => console.log(err));
+    </script>
+  </body>
+</html>
