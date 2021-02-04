@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.min.js"></script>
+
+    <title>JS : Working with Server API</title>
+  </head>
+  <body>
+    <h1>Data Selfie App</h1>
+    <p>Latitude : <span id="lat"></span>°</p>
+    <br />
+    <p>Longitude : <span id="long"></span>°</p>
+    <input type="text" name="" id="mood" />
+    <button id="submit">Submit</button>
+    <hr />
+    <h1>Log</h1>
+    <div id="log"></div>
+
+    <script>
+      if ("geolocation" in navigator) {
+        console.log("Available");
+
+        navigator.geolocation.getCurrentPosition((position) => {
+          const lat = position.coords.latitude;
+          const long = position.coords.longitude;
+
+          document.getElementById("lat").textContent = position.coords.latitude;
+          document.getElementById("long").textContent =
+            position.coords.longitude;
+
+          const data = { lat, long };
+          options = {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify(data),
+          };
+
+          //Event on Button
+          document.getElementById("submit").addEventListener("click", () => {
+            fetch("/api", options)
+              .then((res) => {
+                return res.json();
+              })
+              .then((data) => {
+                console.log(data);
+              });
+
+            //Get Log
+            async function getData() {
+              const res = await fetch("/api");
+              const data = await res.json();
+
+              //Add Data to Log
+              for (item of data) {
+                const geo = document.createElement("h2");
+                const time = document.createElement("h3");
+                const hr = document.createElement("hr");
+                geo.textContent = `Latitude : ${item.lat}, Longitude : ${item.long}`;
+                time.textContent = item.timestamp;
+
+                document.getElementById("log").append(geo, time, hr);
+              }
+            }
+
+            getData();
+          });
+        });
+      } else {
+        console.log("Not Available");
+      }
+    </script>
+  </body>
+</html>
